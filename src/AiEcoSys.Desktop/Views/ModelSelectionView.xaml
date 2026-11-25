@@ -1,0 +1,118 @@
+<!-- Model Selection View - select models using catalogue metadata -->
+<UserControl x:Class="AiEcoSys.Desktop.Views.ModelSelectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="800">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Section header -->
+        <TextBlock Grid.Row="0" Text="Model Selection" FontSize="20" FontWeight="SemiBold"
+                   Foreground="{StaticResource WindowForegroundBrush}" />
+
+        <!-- Selection criteria -->
+        <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0,12,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Task" FontSize="11"
+                           Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" Margin="0,0,8,0" />
+                <ComboBox Grid.Row="0" Grid.Column="1" Width="140" Height="28" VerticalContentAlignment="Center"
+                          ItemsSource="{Binding TaskItems}"
+                          SelectedIndex="{Binding TaskSelectedIndex, Mode=TwoWay}" />
+
+                <TextBlock Grid.Row="0" Grid.Column="2" Text="Provider" FontSize="11"
+                           Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" Margin="14,0,8,0" />
+                <ComboBox Grid.Row="0" Grid.Column="3" Width="160" Height="28" VerticalContentAlignment="Center"
+                          ItemsSource="{Binding ProviderItems}"
+                          SelectedIndex="{Binding ProviderSelectedIndex, Mode=TwoWay}" />
+
+                <TextBlock Grid.Row="0" Grid.Column="4" Text="Modality" FontSize="11"
+                           Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" Margin="14,0,8,0" />
+                <ComboBox Grid.Row="0" Grid.Column="5" Width="140" Height="28" VerticalContentAlignment="Center"
+                          ItemsSource="{Binding ModalityFilterItems}"
+                          SelectedIndex="{Binding ModalityFilterSelectedIndex, Mode=TwoWay}" />
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Min context" FontSize="11"
+                           Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" Margin="0,8,8,0" />
+                <ComboBox Grid.Row="1" Grid.Column="1" Width="140" Height="28" Margin="0,8,0,0"
+                          VerticalContentAlignment="Center"
+                          ItemsSource="{Binding ContextFilterItems}"
+                          SelectedIndex="{Binding ContextFilterSelectedIndex, Mode=TwoWay}" />
+
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="Min input $" FontSize="11"
+                           Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" Margin="14,8,8,0" />
+                <ComboBox Grid.Row="1" Grid.Column="3" Width="160" Height="28" Margin="0,8,0,0"
+                          VerticalContentAlignment="Center"
+                          ItemsSource="{Binding MinInputPriceItems}"
+                          SelectedIndex="{Binding MinInputPriceSelectedIndex, Mode=TwoWay}" />
+
+                <TextBlock Grid.Row="1" Grid.Column="4" Text="Min output $" FontSize="11"
+                           Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" Margin="14,8,8,0" />
+                <ComboBox Grid.Row="1" Grid.Column="5" Width="140" Height="28" Margin="0,8,0,0"
+                          VerticalContentAlignment="Center"
+                          ItemsSource="{Binding MinOutputPriceItems}"
+                          SelectedIndex="{Binding MinOutputPriceSelectedIndex, Mode=TwoWay}" />
+
+                <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="5" Text="{Binding SelectionSummaryText}"
+                           FontSize="11" Foreground="{StaticResource MutedBrush}"
+                           VerticalAlignment="Center" HorizontalAlignment="Right" Margin="14,8,0,0" />
+            </Grid>
+        </Border>
+
+        <!-- Matching models -->
+        <Grid Grid.Row="2">
+            <DataGrid Style="{StaticResource DataGridStyle}"
+                      ItemsSource="{Binding SelectedModels}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Model" Binding="{Binding Name}" Width="200" />
+                    <DataGridTextColumn Header="Provider" Binding="{Binding ProviderName}" Width="150" />
+                    <DataGridTextColumn Header="Context" Binding="{Binding ContextDisplay}" Width="90" />
+                    <DataGridTextColumn Header="Input $/1M" Binding="{Binding InputPriceDisplay}" Width="95" />
+                    <DataGridTextColumn Header="Output $/1M" Binding="{Binding OutputPriceDisplay}" Width="100" />
+                    <DataGridTextColumn Header="Tool calls" Binding="{Binding ToolCallingDisplay}" Width="80" />
+                    <DataGridTextColumn Header="Modalities" Binding="{Binding ModalitiesDisplay}" Width="180" />
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <TextBlock Text="No models match the selected criteria." FontSize="14"
+                       Foreground="{StaticResource MutedBrush}"
+                       HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedModels.Count}" Value="0">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+    </Grid>
+</UserControl>

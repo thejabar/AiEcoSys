@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AiEcoSys.CatalogueSync/AiEcoSys.CatalogueSync.csproj" />
+    <Project Path="src/AiEcoSys.Core/AiEcoSys.Core.csproj" />
+    <Project Path="src/AiEcoSys.Desktop/AiEcoSys.Desktop.csproj" />
+    <Project Path="src/AiEcoSys.Infrastructure/AiEcoSys.Infrastructure.csproj" />
+    <Project Path="src/AiEcoSys.Integrations/AiEcoSys.Integrations.csproj" />
+    <Project Path="src/AiEcoSys.ModelSelection/AiEcoSys.ModelSelection.csproj" />
+    <Project Path="src/AiEcoSys.Pricing/AiEcoSys.Pricing.csproj" />
+    <Project Path="src/AiEcoSys.Providers/AiEcoSys.Providers.csproj" />
+    <Project Path="src/AiEcoSys.Registry/AiEcoSys.Registry.csproj" />
+    <Project Path="src/AiEcoSys.Security/AiEcoSys.Security.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AiEcoSys.Core.Tests/AiEcoSys.Core.Tests.csproj" />
+    <Project Path="tests/AiEcoSys.Desktop.Tests/AiEcoSys.Desktop.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,13 @@
+{
+  "DataLocation": "D:\\AiEcoSys\\Data",
+  "SnapshotLocation": "D:\\AiEcoSys\\Data\\snapshots",
+  "EnableTelemetry": false,
+  "OfflineMode": true,
+  "AutoSyncOnLaunch": false,
+  "AcademyOSEnabled": false,
+  "AcademyOSEndpoint": null,
+  "UBOSEnabled": false,
+  "UBOSEndpoint": null,
+  "MavenMeeMEnabled": false,
+  "MavenMeeMEndpoint": null
+}

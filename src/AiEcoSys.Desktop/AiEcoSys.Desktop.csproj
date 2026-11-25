@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\AiEcoSys.Core\AiEcoSys.Core.csproj" />
+    <ProjectReference Include="..\AiEcoSys.Registry\AiEcoSys.Registry.csproj" />
+    <ProjectReference Include="..\AiEcoSys.Providers\AiEcoSys.Providers.csproj" />
+    <ProjectReference Include="..\AiEcoSys.Pricing\AiEcoSys.Pricing.csproj" />
+    <ProjectReference Include="..\AiEcoSys.ModelSelection\AiEcoSys.ModelSelection.csproj" />
+    <ProjectReference Include="..\AiEcoSys.CatalogueSync\AiEcoSys.CatalogueSync.csproj" />
+    <ProjectReference Include="..\AiEcoSys.Security\AiEcoSys.Security.csproj" />
+    <ProjectReference Include="..\AiEcoSys.Integrations\AiEcoSys.Integrations.csproj" />
+    <ProjectReference Include="..\AiEcoSys.Infrastructure\AiEcoSys.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\assets\catalogue\api.json"
+             Link="catalogue\api.json"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>AiEcoSys</AssemblyName>
+    <ApplicationIcon>..\..\assets\AiEcoSys.ico</ApplicationIcon>
+    <Product>AiEcoSys</Product>
+    <AssemblyTitle>AiEcoSys</AssemblyTitle>
+    <Description>AI Ecosystem Management Platform</Description>
+    <Version>1.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <InformationalVersion>1.0.0</InformationalVersion>
+    <Company>thejabar</Company>
+    <Authors>thejabar</Authors>
+    <Copyright>Copyright (c) 2026 thejabar</Copyright>
+    <RepositoryUrl>https://github.com/thejabar/AiEcoSys</RepositoryUrl>
+  </PropertyGroup>
+
+</Project>

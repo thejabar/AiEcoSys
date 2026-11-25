@@ -1,0 +1,109 @@
+# AiEcoSys repository ignore rules
+
+# Build outputs and caches
+bin/
+obj/
+**/bin/
+**/obj/
+*.user
+*.userosscache
+*.suo
+*.cache
+*.pyc
+
+# Test results, logs, and captured output
+TestResults/
+**/TestResults/
+*.log
+logs/
+**/logs/
+test*.txt
+test_*.txt
+test-*.txt
+*.trx
+build_output.txt
+build_output/
+out/
+**/out/
+artifacts/
+**/artifacts/
+*.zip
+*.7z
+*.rar
+
+# Release build artifacts (source-only repository)
+Release/
+**/Release/
+Build/
+**/Build/
+build/
+**/build/
+
+# Runtime data and user data
+Data/
+**/Data/
+snapshots/
+**/snapshots/
+settings/
+**/settings/
+*.json.bak
+*.json.tmp
+
+# Temporary files and editor backups
+*.tmp
+*.bak
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Secrets and credentials
+.env
+*.env
+*.secret
+*.secrets
+appsettings*.json
+**/appsettings*.json
+**/secrets/**
+**/.secrets/**
+NuGet/
+**/NuGet/
+*.nupkg
+*.snupkg
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.user
+*.rsuser
+*.sln.docstates
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docs build temp
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Installer tooling installs
+Tools/
+**/Tools/
+
+# Python tooling
+.tools/
+__pycache__/
+.pytest_cache/
+
+# Scratch / conversation artifacts
+method.txt
+lock.txt
+
+# Runtime test scratch
+tests/.temp/
+**/tests/.temp/

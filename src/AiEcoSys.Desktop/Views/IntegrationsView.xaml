@@ -1,0 +1,100 @@
+<!-- Integrations View - opt-in integration configuration for AcademyOS, UBOS and MavenMeeM -->
+<UserControl x:Class="AiEcoSys.Desktop.Views.IntegrationsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="800">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Section header -->
+        <TextBlock Grid.Row="0" Text="Integrations" FontSize="20" FontWeight="SemiBold"
+                   Foreground="{StaticResource WindowForegroundBrush}" />
+
+        <ScrollViewer Grid.Row="1" Margin="0,12,0,0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+
+                <!-- AcademyOS -->
+                <Border Style="{StaticResource RowCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="AcademyOS" FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource WindowForegroundBrush}" Margin="0,0,0,4" />
+                        <TextBlock Text="Optional AcademyOS provider integration. Disabled by default."
+                                   FontSize="10" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,8" />
+                        <CheckBox Content="Enable AcademyOS integration" Margin="0,0,0,8"
+                                  IsChecked="{Binding AcademyOSEnabled, Mode=TwoWay}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Width="360" Height="28" VerticalContentAlignment="Center" Margin="0,0,8,0"
+                                     Text="{Binding AcademyOSEndpoint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     ToolTip="Optional endpoint URL (HTTPS)" />
+                            <Button Content="Test endpoint" Width="120" Height="28"
+                                    Command="{Binding TestIntegrationCommand}" CommandParameter="AcademyOS" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding AcademyOSStatusText}" FontSize="10"
+                                   Foreground="{StaticResource MutedBrush}" Margin="0,6,0,0" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+
+                <!-- UBOS -->
+                <Border Style="{StaticResource RowCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="UBOS" FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource WindowForegroundBrush}" Margin="0,0,0,4" />
+                        <TextBlock Text="Optional UBOS provider integration. Disabled by default."
+                                   FontSize="10" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,8" />
+                        <CheckBox Content="Enable UBOS integration" Margin="0,0,0,8"
+                                  IsChecked="{Binding UBOSEnabled, Mode=TwoWay}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Width="360" Height="28" VerticalContentAlignment="Center" Margin="0,0,8,0"
+                                     Text="{Binding UBOSEndpoint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     ToolTip="Optional endpoint URL (HTTPS)" />
+                            <Button Content="Test endpoint" Width="120" Height="28"
+                                    Command="{Binding TestIntegrationCommand}" CommandParameter="UBOS" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding UBOSStatusText}" FontSize="10"
+                                   Foreground="{StaticResource MutedBrush}" Margin="0,6,0,0" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+
+                <!-- MavenMeeM -->
+                <Border Style="{StaticResource RowCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="MavenMeeM" FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource WindowForegroundBrush}" Margin="0,0,0,4" />
+                        <TextBlock Text="Optional MavenMeeM provider integration. Disabled by default."
+                                   FontSize="10" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,8" />
+                        <CheckBox Content="Enable MavenMeeM integration" Margin="0,0,0,8"
+                                  IsChecked="{Binding MavenMeeMEnabled, Mode=TwoWay}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Width="360" Height="28" VerticalContentAlignment="Center" Margin="0,0,8,0"
+                                     Text="{Binding MavenMeeMEndpoint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     ToolTip="Optional endpoint URL (HTTPS)" />
+                            <Button Content="Test endpoint" Width="120" Height="28"
+                                    Command="{Binding TestIntegrationCommand}" CommandParameter="MavenMeeM" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding MavenMeeMStatusText}" FontSize="10"
+                                   Foreground="{StaticResource MutedBrush}" Margin="0,6,0,0" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Save and status -->
+        <Border Grid.Row="2" Style="{StaticResource RowCardStyle}" Margin="0,10,0,0">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Save integration settings" Width="180" Height="28" Margin="0,0,12,0"
+                        Command="{Binding SaveIntegrationsCommand}" />
+                <TextBlock Text="{Binding IntegrationStatusText}" FontSize="11"
+                           Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
