@@ -1,148 +1,100 @@
 # AiEcoSys Installation Guide
 
-**Version 1.0.0** · Windows 10/11 x64
+**Version 1.0.0** — Windows 10/11 x64 (current verified release)
 
-## 1. What you receive
+## 1. Scope and current v1.0.0 behavior
 
-The release contains:
+This guide documents the **current verified v1.0.0 Windows release**. 
+
+> **v1.0.0 limitation (actual build behavior):** The current v1.0.0 application and installer enforce a writable **non-C:** data location and default to `D:\AiEcoSys` paths. This is a known implementation constraint in v1.0.0, not a universal product requirement. Future releases plan standard Windows conventions (e.g., `%ProgramFiles%\The Jabar\AiEcoSys` for program files and user app-data directories under `%LOCALAPPDATA%`/user-selected locations). Do not modify v1.0.0 release artifacts; implementation changes belong in a future versioned release.
+
+## 2. What you receive
 
 | Item | Purpose |
 |------|---------|
-| `AiEcoSys-Setup.exe` | Windows installer |
+| `AiEcoSys-Setup.exe` | Windows installer (v1.0.0 verified) |
 | `Portable\AiEcoSys.exe` | Self-contained portable application |
 | `Portable\catalogue\api.json` | Offline Models.dev catalogue |
 | `Documentation\` | Guides and reports |
 | `scripts\` | Install, verify, backup, restore, and recovery scripts |
 | `SHA256SUMS.txt` | SHA-256 checksums |
 
-The application is self-contained. You do not need to install .NET, Node.js,
-or any other runtime.
+The application is self-contained; no separate .NET runtime is required.
 
-## 2. System requirements
+## 3. System requirements (v1.0.0)
 
 - Windows 10 or Windows 11, x64.
-- A writable non-C: location for the application and data. The supported
-  default is the `D:` drive.
+- A writable **non-C:** location for application/data in the current v1.0.0 build.
 - At least 250 MB free for the installed application and catalogue.
-- No network connection is required for installation or offline use.
+- No network connection required for installation or offline use.
 
-The installer and application are per-user. Administrator elevation is not
-required when the chosen directories are writable by the current user.
-
-## 3. Verify the download
-
-From PowerShell, in the folder containing the release files:
+## 4. Verify the download
 
 ```powershell
 Get-FileHash .\AiEcoSys-Setup.exe -Algorithm SHA256
 Get-Content .\SHA256SUMS.txt
 ```
 
-The computed hash must match the entry for `AiEcoSys-Setup.exe`. Do not run an
-installer whose hash does not match.
+Do not run an installer whose hash does not match the published checksum.
 
-## 4. Install with the wizard
+## 5. Install with the wizard (v1.0.0)
 
 1. Run `AiEcoSys-Setup.exe`.
 2. Accept the MIT licence.
-3. Choose the program directory. The default is:
+3. Choose the program directory. **v1.0.0 default:** `D:\AiEcoSys\Application` (you may select another writable non-C: directory).
+4. Optionally create a desktop shortcut.
+5. Complete the wizard.
 
-   `D:\AiEcoSys\Application`
+**v1.0.0 default data directory:** `D:\AiEcoSys\Data` (or `<install>\Data` for custom installs in the current installer behavior). The installer writes `aiecoSys.paths.json` beside `AiEcoSys.exe`.
 
-4. Choose whether to create a desktop shortcut. A Start Menu shortcut is
-   always created.
-5. Complete the wizard and leave **Launch AiEcoSys** selected if you want to
-   start the application immediately.
-
-The installer creates these data directories:
-
-- `D:\AiEcoSys\Data\settings`
-- `D:\AiEcoSys\Data\snapshots`
-
-It writes `aiecoSys.paths.json` beside `AiEcoSys.exe` so the application knows
-where its data lives. The data directory is separate from the program files.
-
-### Custom install location
-
-You may select another absolute, non-C: directory. If you do, the installer
-derives the data directory as `<install directory>\Data`. For example:
-
-- Program: `E:\Apps\AiEcoSys`
-- Data: `E:\Apps\AiEcoSys\Data`
-
-You can override the data directory during a scripted install with
-`/DATA=<absolute non-C: path>`.
-
-## 5. Silent install
+## 6. Silent install (v1.0.0)
 
 ```powershell
-.\AiEcoSys-Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP- `
-  /DIR="D:\AiEcoSys\Application" /DATA="D:\AiEcoSys\Data"
+.\AiEcoSys-Setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP- /DIR="D:\AiEcoSys\Application" /DATA="D:\AiEcoSys\Data"
 ```
 
-Add `/TASKS=desktopicon` to create the desktop shortcut.
+Add `/TASKS=desktopicon` for a desktop shortcut.
 
-The supplied wrapper performs validation and logging:
-
+Wrapper script (developer/maintenance use; paths shown are examples/defaults for v1.0.0):
 ```powershell
-.\scripts\Install-AiEcoSys.ps1 `
-  -InstallerPath .\AiEcoSys-Setup.exe `
-  -InstallDir D:\AiEcoSys\Application `
-  -DataDir D:\AiEcoSys\Data
+.\scripts\Install-AiEcoSys.ps1 -InstallerPath .\AiEcoSys-Setup.exe -InstallDir D:\AiEcoSys\Application -DataDir D:\AiEcoSys\Data
 ```
 
-## 6. First run
+## 7. Portable installation (v1.0.0)
 
-Launch **AiEcoSys** from the Start Menu. The Dashboard should report:
-
-- 328 providers
-- 10,283 models
-- Data source: `Local Models.dev api.json (offline snapshot)`
-
-If the counts are zero, the bundled catalogue was not installed correctly.
-Run:
-
-```powershell
-.\scripts\Verify-AiEcoSys.ps1 -InstallDir D:\AiEcoSys\Application
-```
-
-## 7. Portable installation
-
-The portable build needs no installer:
-
-1. Copy the `Portable` folder to a writable non-C: directory.
+1. Copy the `Portable` folder to a writable **non-C:** location.
 2. Run `AiEcoSys.exe`.
-3. The application creates `Data\settings` and `Data\snapshots` beside the
-   executable and loads `catalogue\api.json`.
+3. The app creates `Data\settings` and `Data\snapshots` beside the executable and loads `catalogue\api.json`.
 
-Do not copy only the executable; the `catalogue` folder is required for
-offline data.
+Do not copy only the executable; the `catalogue` folder is required.
 
-## 8. Upgrade
+## 8. First run
 
-Run the newer installer over the existing installation. The default program
-directory is reused and user data is preserved. See
-[UPGRADE-GUIDE.md](UPGRADE-GUIDE.md).
+Launch AiEcoSys. Dashboard should report the bundled catalogue (328 providers, 10,283 models at v1.0.0 release time) and source `Local Models.dev api.json (offline snapshot)`.
 
-## 9. Uninstall
+## 9. Offline installation
 
-Use **Settings → Apps → AiEcoSys → Uninstall**, or the Start Menu uninstall
-shortcut. User data is preserved unless you explicitly confirm deletion. See
-[UNINSTALLATION-GUIDE.md](UNINSTALLATION-GUIDE.md).
+The installer and portable build contain the catalogue and runtime files. No download is required. Online refresh is optional.
 
-## 10. Offline installation
+## 10. Upgrade / uninstall / recovery
 
-The installer and portable build contain the catalogue and all runtime files.
-No download is required. Online catalogue refresh is optional and can be
-disabled in Settings.
+- Upgrade: see [UPGRADE-GUIDE.md](UPGRADE-GUIDE.md).
+- Uninstall: see [UNINSTALLATION-GUIDE.md](UNINSTALLATION-GUIDE.md). User data preserved by default unless explicitly removed.
+- Recovery: see [RECOVERY-GUIDE.md](RECOVERY-GUIDE.md).
 
-## 11. Troubleshooting
+## 11. Future platform installation (planned, not available in v1.0.0)
 
-- **SmartScreen warning**: the installer is not code-signed. Verify the
-  SHA-256 before choosing **More info → Run anyway**.
-- **Cannot write to the chosen directory**: choose a writable non-C: folder.
-- **Blank or empty catalogue**: verify `catalogue\api.json` exists beside the
-  executable.
-- **Data path error**: confirm the path is absolute and not on C:.
+The following are **planned** and must not be treated as available v1.0.0 packages:
+- Linux installation (planned)
+- macOS installation (planned)
+- Android installation (planned)
+- iOS/iPadOS installation (planned)
+- PowerShell module installation (planned)
+- Bash/Zsh/standalone CLI installation (planned)
+- Web app / PWA deployment (planned)
+- REST API deployment (planned)
+- Docker/server deployment (planned)
 
-More help: [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
+## 12. Troubleshooting
+
+See [TROUBLESHOOTING.md](TROUBLESHOOTING.md). For v1.0.0, "data path must not be on C:" is an actual current-build constraint.

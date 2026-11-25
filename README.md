@@ -1,108 +1,89 @@
 # AiEcoSys
 
-AiEcoSys is a Windows desktop application for exploring AI providers and models, comparing published token pricing, selecting models for a task, and managing an offline catalogue. It is built with .NET 10, C#, and WPF (MVVM).
+AiEcoSys is an evolving, open-source AI ecosystem for exploring AI providers and models, comparing published pricing/capabilities, managing credentials securely, and organising model selection through a central catalogue with online and offline support.
 
 **Publisher:** The Jabar  
-**Version:** 1.0.0  
-**Platform:** Windows 10 / Windows 11 (x64)
+**Current release:** v1.0.0 (Windows 10/11 x64, verified)  
+**Repository:** <https://github.com/thejabar/AiEcoSys>  
+**Releases:** <https://github.com/thejabar/AiEcoSys/releases>
 
-## Main features
+## Product status
 
-- **Dashboard** - provider/model counts, catalogue status, and recent activity.
-- **Model Explorer** - search by name, modality, and context window.
-- **Provider Manager** - provider metadata, API endpoints, and connection tests.
-- **Pricing** - input/output prices in USD per 1M tokens, with missing-value and zero-cost filters.
-- **Model Selection** - filter by task, provider, modality, context, and price.
-- **Catalogue** - save and restore local JSON snapshots; optional online refresh.
-- **Integrations** - opt-in AcademyOS, UBOS, and MavenMeeM endpoints.
-- **Security** - Windows Credential Manager storage and HTTPS validation.
-- **Settings** - data and snapshot locations, offline mode, and behaviour options.
-- **About** - version, runtime, licence, and project links.
+### Available now (v1.0.0, verified)
+- Windows 10/11 x64 desktop application (.NET 10, C#, WPF, MVVM).
+- Self-contained installer, portable executable, and ISO installation media.
+- Bundled offline Models.dev catalogue; optional online refresh.
+- Model/provider/pricing exploration and selection views.
+- Windows Credential Manager for provider credentials.
+- Opt-in integrations (AcademyOS, UBOS, MavenMeeM) with HTTPS validation.
 
-AiEcoSys does not invent model metadata or prices. Values come from the bundled Models.dev catalogue; absent values are shown as `—`.
+### Planned / under development (not available in v1.0.0)
+- Linux and macOS desktop editions.
+- Android and iOS/iPadOS applications.
+- PowerShell 7+ module, Bash/Zsh CLI, and standalone CLI.
+- Web application / PWA.
+- REST API.
+- Docker and server environments.
+- Platform-native credential stores outside Windows (Keychain, Secret Service, Android Keystore, etc.).
 
-## Download
+Do not treat planned platforms/features as available until they are released and verified.
 
-Official release assets are published on GitHub Releases:
+## Windows v1.0.0 installation (current verified release)
 
-- Releases: <https://github.com/thejabar/AiEcoSys/releases>
-- v1.0.0 (initial public release): <https://github.com/thejabar/AiEcoSys/releases/tag/v1.0.0>
+> **Important (v1.0.0 actual behavior):** The current verified v1.0.0 build enforces a non-C: data location and defaults to `D:\AiEcoSys` paths. This is a known v1.0.0 implementation limitation. Future releases plan standard Windows conventions (`%ProgramFiles%\The Jabar\AiEcoSys` for program files and appropriate `%LOCALAPPDATA%`/user-selected app-data locations), with user-selectable install/data directories. Do not assume D: is a universal end-user requirement; it is the current default/constraint of v1.0.0.
 
-Expected v1.0.0 assets include the Windows installer, portable executable, ISO, checksums, and guides. Verify SHA-256 checksums before running downloaded files.
+### Installer
+1. Download `AiEcoSys-Setup.exe` and `SHA256SUMS.txt` from the [v1.0.0 release](https://github.com/thejabar/AiEcoSys/releases/tag/v1.0.0).
+2. Verify SHA-256 before running.
+3. Run the installer.
 
-## Requirements
+**v1.0.0 default locations (current build):**
+- Program files: `D:\AiEcoSys\Application` (custom non-C: path selectable)
+- User data: `D:\AiEcoSys\Data` (custom non-C: path selectable; must be writable)
 
-- Windows 10 or Windows 11, x64.
-- The portable and installed builds are self-contained and do not require a separately installed .NET runtime.
-- A writable non-C: data location. The default installed data directory is `D:\AiEcoSys\Data`.
+The installer creates Start Menu entries and an optional desktop shortcut. It does not delete user data during ordinary uninstall unless explicitly confirmed.
 
-## Install
+### Portable
+1. Download `AiEcoSys.exe` (portable) from the v1.0.0 release and verify SHA-256.
+2. Copy to a writable non-C: location.
+3. Run `AiEcoSys.exe`. A `Data` folder is created beside the executable.
 
-1. Download `AiEcoSys-Setup.exe` and `SHA256SUMS.txt` from the GitHub release.
-2. Verify the SHA-256 checksum (see [Verify downloads](#verify-downloads)).
-3. Run `AiEcoSys-Setup.exe`.
+The portable edition should be used from a writable user-selected location; in v1.0.0 it currently requires a non-C: location.
 
-Default locations:
-
-- Program files: `D:\AiEcoSys\Application`
-- User data: `D:\AiEcoSys\Data`
-
-The installer creates Start Menu entries and an optional desktop shortcut. It does not delete user data during an ordinary uninstall unless you explicitly confirm data removal.
-
-## Run the portable version
-
-1. Download the portable package/executable from the GitHub release.
-2. Verify its SHA-256 checksum.
-3. Extract/copy to a writable non-C: location and run `AiEcoSys.exe`.
-
-The portable build keeps settings and snapshots in a `Data` folder beside the executable and loads the bundled `catalogue\api.json`. It does not require a prior installation.
-
-## Offline catalogue
-
-AiEcoSys ships with a bundled Models.dev `api.json` catalogue for offline use. The application can load the bundled/local snapshot without network access. Online refresh is optional and can be disabled by offline mode.
-
-## Provider configuration and secure credential storage
-
-- Provider API endpoints and model metadata are loaded from the catalogue.
-- Provider credentials can be stored through the Security view.
-- Credentials are stored in **Windows Credential Manager** for the current user and are never written to settings, snapshots, or logs.
-- Remote integration endpoints must use HTTPS; HTTP is accepted only for localhost.
-
-## Optional integrations
-
-AcademyOS, UBOS, and MavenMeeM integrations are opt-in and disabled by default. Enable them only if you use those systems, configure HTTPS endpoints, and save integration settings explicitly.
-
-## Verify downloads
-
-From PowerShell in the folder containing the downloaded files:
-
+### Verify downloads
 ```powershell
 Get-FileHash .\AiEcoSys-Setup.exe -Algorithm SHA256
 Get-Content .\SHA256SUMS.txt
 ```
 
-Compare the computed hash to the published checksum. Do not run a file whose hash does not match.
+## Offline catalogue
+AiEcoSys ships with a bundled Models.dev `api.json` catalogue for offline use. Online refresh is optional and can be disabled by offline mode.
+
+## Security and credentials
+- **v1.0.0 (Windows):** Provider credentials are stored in Windows Credential Manager for the current user; never written to settings, snapshots, or logs.
+- Remote integration endpoints must use HTTPS (localhost HTTP exception).
+- No telemetry is collected or transmitted by the current v1.0.0 release.
+- **Future/planned:** Keychain (macOS/iOS), Secret Service/libsecret (Linux), Android Keystore, and other platform-native stores will be used only when implemented and tested.
+
+## Configuration and integrations
+- Provider/model metadata comes from the bundled catalogue.
+- Optional integrations (AcademyOS, UBOS, MavenMeeM) are opt-in, disabled by default.
+- See [Configuration guide](docs/CONFIGURATION-GUIDE.md) and [User guide](docs/USER-GUIDE.md).
 
 ## Uninstall and recovery
+- Uninstall via Windows Apps or Start Menu shortcut. User data preserved by default.
+- See [Recovery guide](docs/RECOVERY-GUIDE.md) and [Uninstallation guide](docs/UNINSTALLATION-GUIDE.md).
 
-- Uninstall through Windows Apps or the Start Menu uninstall shortcut. User data is preserved by default.
-- Recovery scripts and guides are included in the repository/release documentation.
-- See [docs/RECOVERY-GUIDE.md](docs/RECOVERY-GUIDE.md) and [docs/UNINSTALLATION-GUIDE.md](docs/UNINSTALLATION-GUIDE.md).
-
-## Build from source
-
-Development/build (example):
-
+## Build from source (developers)
 ```powershell
 dotnet build .\AiEcoSys.slnx -c Release
 dotnet test .\AiEcoSys.slnx -c Release
 dotnet publish .\src\AiEcoSys.Desktop\AiEcoSys.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o .\Release\Portable
 ```
 
-The bundled catalogue is `assets\catalogue\api.json`, derived from [Models.dev](https://models.dev). See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+Developer note: `D:\AiEcoSys` is the current maintainer's local working path/example; it is not a required end-user installation path.
 
 ## Documentation
-
 - [Installation guide](docs/INSTALLATION-GUIDE.md)
 - [User guide](docs/USER-GUIDE.md)
 - [Configuration guide](docs/CONFIGURATION-GUIDE.md)
@@ -111,19 +92,23 @@ The bundled catalogue is `assets\catalogue\api.json`, derived from [Models.dev](
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
 - [Changelog](CHANGELOG.md)
 
-## Contributing and security
+## Contributing, security, licence
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- [SECURITY.md](SECURITY.md)
+- [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)
+- [MIT License](LICENSE)
 
-- Contributions: [CONTRIBUTING.md](CONTRIBUTING.md)
-- Code of conduct: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
-- Security reporting: [SECURITY.md](SECURITY.md)
+## Roadmap (planned, not yet released)
+| Area | Status |
+|---|---|
+| Windows v1.0.0 desktop | **Available (verified)** |
+| Linux/macOS desktop | Planned |
+| Android/iOS/iPadOS | Planned |
+| PowerShell 7+ module | Planned |
+| Bash/Zsh/standalone CLI | Planned |
+| Web app / PWA | Planned |
+| REST API | Planned |
+| Docker/server deployment | Planned |
 
-## Third-party notices and licence
-
-- Third-party notices: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)
-- Licence: [MIT](LICENSE)
-
-## Scope and future plans
-
-**Available in v1.0.0 (verified):** desktop catalogue views, local snapshot management, pricing/selection views, credential storage via Windows Credential Manager, optional integration settings, portable/installer/ISO release artifacts.
-
-**Planned/future (not claimed as v1.0.0 functionality):** additional provider integrations, enhanced sync workflows, expanded automation, and signed installers. Future changes will be versioned separately and will not silently alter v1.0.0 release artifacts.
+Future releases will be versioned separately; v1.0.0 verified release artifacts will not be silently changed.

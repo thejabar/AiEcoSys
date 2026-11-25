@@ -1,6 +1,8 @@
 # AiEcoSys Upgrade Guide
 
-**Version 1.0.0** · Windows 10/11 x64
+**Version 1.0.0** — Windows 10/11 x64 (current verified release)
+
+> **v1.0.0 note:** Default paths in this guide reflect v1.0.0 defaults (`D:\AiEcoSys\...`) and the v1.0.0 non-C: data-location constraint. Substitute your actual configured paths. Future releases plan standard Windows path conventions.
 
 ## 1. Upgrade from a previous installer
 

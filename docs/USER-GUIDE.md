@@ -1,177 +1,77 @@
 # AiEcoSys User Guide
 
-**Version 1.0.0**
+**Version 1.0.0** — Windows 10/11 x64 (current verified release)
 
-AiEcoSys is a local desktop catalogue of AI providers and models. It reads
-Models.dev metadata, shows published token prices when present, and helps you
-select models for a task. It does not call model APIs or generate text.
+AiEcoSys is a local desktop catalogue of AI providers and models. It reads Models.dev metadata, shows published token prices when present, and helps you select models for a task. It does not call model APIs or generate text.
+
+> **v1.0.0 limitation:** The current v1.0.0 build requires a writable **non-C:** data location and defaults to `D:\AiEcoSys` paths. Future releases plan standard Windows locations and user-selectable app-data directories. This is a known v1.0.0 implementation constraint.
 
 ## 1. Starting the application
 
-Launch **AiEcoSys** from the Start Menu, desktop shortcut, or by running
-`AiEcoSys.exe`.
-
-The status bar shows the catalogue state and API mode. The Dashboard shows the
-provider/model counts, last synchronisation, data source, and recent events.
+Launch **AiEcoSys** from Start Menu, desktop shortcut, or by running `AiEcoSys.exe`. The Dashboard shows provider/model counts, catalogue status, last sync, data source, and recent events.
 
 ## 2. Navigation
 
-Use the left navigation pane:
-
-1. Dashboard
-2. Model Explorer
-3. Provider Manager
-4. Pricing
-5. Model Selection
-6. Catalogue
-7. Integrations
-8. Security
-9. Settings
-10. About
+Dashboard, Model Explorer, Provider Manager, Pricing, Model Selection, Catalogue, Integrations, Security, Settings, About.
 
 ## 3. Dashboard
 
-The Dashboard summarises the loaded catalogue:
-
-- provider count and model count;
-- catalogue status (for example `Offline` or `Ready`);
-- last sync time;
-- data source and timestamp;
-- recent sync history.
+Shows provider/model counts, catalogue status, last sync, data source, and recent sync history.
 
 ## 4. Model Explorer
 
-Use Model Explorer to find models in the loaded catalogue.
-
-- **Search** matches model names as you type.
-- **Modality** filters by output modality (text, image, audio, and so on).
-- **Context** filters by context-window size.
-- The table shows model name, provider, context, tool calling, and prices.
-- The summary line reports how many models match.
-
-Absent metadata is shown as `—`, not as zero or an invented value.
+Search by name; filter by modality/context. Table shows model, provider, context, tool calling, and prices. Absent metadata shown as `—`.
 
 ## 5. Provider Manager
 
-The provider table lists provider name, identifier, API endpoint, model count,
-and credential status.
-
-- **Test connection** sends an HTTPS `HEAD` request to the provider API
-  endpoint when one is published in the catalogue.
-- A provider may reject `HEAD` even when its API works; the result is a
-  connectivity check, not an authentication test.
-- Credential status is read from Windows Credential Manager.
+Shows provider name/id, API endpoint, model count, credential status. "Test connection" sends HTTPS `HEAD` (connectivity check only). Credential status comes from Windows Credential Manager.
 
 ## 6. Pricing
 
-Pricing shows input and output prices in **USD per 1 million tokens**, using
-the values in the Models.dev catalogue.
-
-Filters:
-
-- **Price mode**: all models, missing prices, zero-cost, or positive prices.
-- **Minimum input price** and **minimum output price**.
-
-Models without a published cost show `—`. AiEcoSys does not estimate or
-convert prices.
+Input/output prices in USD per 1M tokens from Models.dev catalogue. Filters: price mode, min input/output. Missing costs shown as `—`.
 
 ## 7. Model Selection
 
-Model Selection narrows the catalogue by requirements:
-
-- task (for example general text or tool calling);
-- provider;
-- input modality;
-- context window;
-- minimum input/output price.
-
-The result table and summary update immediately. Use it to shortlist models,
-then open Provider Manager for endpoint details.
+Filter by task, provider, input modality, context, min price. Results update immediately.
 
 ## 8. Catalogue
 
-The Catalogue view manages local snapshots.
-
-- **Save snapshot** writes `latest.json` to the configured snapshot directory.
-- **Refresh from snapshot** reloads that file into the registry.
-- **Refresh online** downloads `https://models.dev/api.json` when offline mode
-  is disabled.
-- **Search** filters the catalogue records shown in the table.
-
-Snapshots are JSON files containing providers and models. They do not contain
-credentials.
+- **Save snapshot** writes `latest.json` to configured snapshot directory.
+- **Refresh from snapshot** reloads it.
+- **Refresh online** downloads `https://models.dev/api.json` when offline mode is disabled.
+- Snapshots are JSON; no credentials.
 
 ## 9. Integrations
 
-AcademyOS, UBOS, and MavenMeeM integrations are **opt-in** and disabled by
-default.
-
-- Enable an integration only if you use it.
-- Enter an endpoint. Remote endpoints must use HTTPS; HTTP is allowed only for
-  localhost.
-- **Test** performs a `HEAD` request.
-- **Save integration settings** persists the opt-in state and endpoint.
-
-AiEcoSys does not modify AcademyOS, UBOS, or MavenMeeM data.
+AcademyOS, UBOS, MavenMeeM are opt-in and disabled by default. Remote endpoints must be HTTPS (localhost HTTP allowed). Test uses `HEAD`. AiEcoSys does not modify those systems.
 
 ## 10. Security
 
-The Security view reports the credential backend and HTTPS policy.
-
-To store a provider credential:
-
-1. Enter the provider identifier, for example `openai`.
-2. Enter the secret in the **Secret** field. The field is a password box and
-   is not data-bound.
-3. Select **Store credential**.
-4. The secret is written to Windows Credential Manager as
-   `AiEcoSys:<provider>`.
-
-To remove it, select **Delete credential**. Secrets are never written to
-settings, snapshots, or logs.
+Credentials stored in Windows Credential Manager as `AiEcoSys:<provider>`. Use Security view to store/delete. Secret field is a password box; secrets never written to settings/snapshots/logs.
 
 ## 11. Settings
 
-Settings controls:
-
-- **Data Location** — absolute, non-C: data root.
-- **Snapshot Location** — must be inside the data root.
-- **Offline mode** — disables online catalogue refresh.
-- **Automatically refresh catalogue on launch** — when enabled and offline mode
-  is off, the local catalogue is loaded first and the online refresh follows.
-
-Saving a new data location also moves the default snapshot path under it.
+- **Data Location** — absolute, **non-C:** in v1.0.0 (current build constraint).
+- **Snapshot Location** — must be inside data location.
+- **Offline mode** — disables online refresh.
+- **Automatically refresh catalogue on launch** — when enabled and offline mode off, local catalogue loads first then online refresh follows.
 
 ## 12. About
 
-About shows the application version, build configuration, runtime, MIT
-licence, project links, and a feature summary.
+Shows version, build config, runtime, MIT licence, project links.
 
-## 13. Data locations
+## 13. Data locations (v1.0.0 actual behavior)
 
-Portable copy:
+**Portable:** program = folder containing `AiEcoSys.exe`; data = `Data` beside exe; catalogue = `catalogue\api.json` beside exe. Must be on a writable non-C: location in v1.0.0.
 
-- program: the folder containing `AiEcoSys.exe`;
-- data: `Data` beside the executable;
-- catalogue: `catalogue\api.json` beside the executable.
+**Installed (v1.0.0 defaults):** program = `D:\AiEcoSys\Application`; data = `D:\AiEcoSys\Data`; catalogue = `catalogue\api.json` in program directory. Custom non-C: locations selectable in v1.0.0 installer.
 
-Installed copy:
-
-- program: `D:\AiEcoSys\Application` by default;
-- data: `D:\AiEcoSys\Data` by default;
-- catalogue: `catalogue\api.json` in the program directory.
-
-Settings are stored in `<data>\settings\app-settings.json`; snapshots in
-`<data>\snapshots`.
+**Future planned:** standard Windows locations (`%ProgramFiles%\The Jabar\AiEcoSys`, `%LOCALAPPDATA%\The Jabar\AiEcoSys` or user-selected app-data dirs) — not available in v1.0.0.
 
 ## 14. Offline use
 
-The bundled catalogue makes the application useful without a network. Online
-refresh and provider connection tests require network access and are optional.
-No telemetry is sent.
+Bundled catalogue works without network. Online refresh/provider tests require network and are optional. No telemetry sent.
 
 ## 15. Getting help
 
-See [TROUBLESHOOTING.md](TROUBLESHOOTING.md),
-[RECOVERY-GUIDE.md](RECOVERY-GUIDE.md), and
-[CONFIGURATION-GUIDE.md](CONFIGURATION-GUIDE.md).
+See [TROUBLESHOOTING.md](TROUBLESHOOTING.md), [RECOVERY-GUIDE.md](RECOVERY-GUIDE.md), [CONFIGURATION-GUIDE.md](CONFIGURATION-GUIDE.md).
