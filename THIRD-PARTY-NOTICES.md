@@ -1,6 +1,8 @@
 # Third-Party Notices
 
-AiEcoSys includes or depends on the following third-party components.
+AiEcoSys is distributed under the MIT License (see [LICENSE](LICENSE)). Third-party
+components remain under their own licenses. The notices below cover components
+that are redistributed or directly relevant to the release.
 
 ## Models.dev catalogue
 
@@ -14,19 +16,18 @@ AiEcoSys includes or depends on the following third-party components.
 The catalogue is redistributed as data. AiEcoSys does not modify model prices
 or capabilities; absent values are displayed as missing.
 
-## .NET 10 runtime
+## .NET 10 runtime (self-contained distribution)
 
-The self-contained Windows build includes the .NET runtime and WPF components.
+The self-contained Windows build includes .NET runtime and WPF components.
 
 - Project: https://dotnet.microsoft.com
 - Licence: MIT
 - Copyright: .NET Foundation and Contributors
 
-## Test-only packages
+## Test-only NuGet packages
 
-The test projects use xUnit, Microsoft.NET.Test.Sdk, xunit.runner.visualstudio,
-and coverlet.collector. These packages are not included in the distributed
-application.
+These packages are used by test projects and are not redistributed in the
+application release artifacts.
 
 | Package | Licence |
 |---------|---------|
@@ -35,7 +36,7 @@ application.
 | Microsoft.NET.Test.Sdk | MIT |
 | coverlet.collector | MIT |
 
-## Inno Setup
+## Inno Setup (build-time installer tool)
 
 The Windows installer is built with Inno Setup.
 
@@ -44,4 +45,10 @@ The Windows installer is built with Inno Setup.
 - Copyright: Copyright (C) 1997-2026 Jordan Russell and Martijn Laan
 
 Inno Setup is a build-time tool and is not redistributed as part of the
-application.
+application payload.
+
+## Application assets
+
+`assets/AiEcoSys.ico` and `assets/AiEcoSys.png` are project-created assets for
+AiEcoSys unless otherwise noted. No third-party fonts or stock images are
+bundled in the application.

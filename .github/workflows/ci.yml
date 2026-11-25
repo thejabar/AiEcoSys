@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+
 jobs:
   build-test:
     runs-on: windows-latest
@@ -19,10 +22,10 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Restore
-        run: dotnet restore D:\AiEcoSys\AiEcoSys.slnx
+        run: dotnet restore AiEcoSys.slnx
 
       - name: Build
-        run: dotnet build D:\AiEcoSys\AiEcoSys.slnx -c Release --nologo
+        run: dotnet build AiEcoSys.slnx -c Release --nologo
 
       - name: Test
-        run: dotnet test D:\AiEcoSys\AiEcoSys.slnx -c Release --nologo
+        run: dotnet test AiEcoSys.slnx -c Release --nologo

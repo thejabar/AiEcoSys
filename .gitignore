@@ -1,109 +1,139 @@
-# AiEcoSys repository ignore rules
+# AiEcoSys - Git Ignore
+# Publisher: The Jabar
 
-# Build outputs and caches
-bin/
-obj/
-**/bin/
-**/obj/
+# .NET build output
+[Bb]in/
+[Oo]bj/
+[Aa]rtifacts/
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Visual Studio
+.vs/
+*.suo
 *.user
 *.userosscache
-*.suo
-*.cache
-*.pyc
+*.sln.docstates
+*.rsuser
 
-# Test results, logs, and captured output
-TestResults/
-**/TestResults/
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+
+# Build and publishing output
+publish/
+out/
+dist/
+Release/
+Debug/
+x64/
+x86/
+Win32/
+[Bb]uild/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# Runtime user data
+snapshots/
+backups/
+recovery-data/
+Data/
+settings/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# User settings
+appsettings.Local.json
+appsettings.Development.json
+settings.local.json
+user.settings.json
+*.user.config
+
+# Credentials and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+secrets.json
+credentials.json
+credentials.local.json
+
+# Logs
 *.log
 logs/
-**/logs/
+Log/
+Logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.old
+*.orig
+*.swp
+*.swo
+~$*
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ISO and installer intermediates
+*.iso.tmp
+*.wim
+*.esd
+*.cab
+
+# Machine-specific configuration
+*.local
+*.machine.json
+*.machine.config
+
+# Node.js
+node_modules/
+.npm/
+.npm-cache/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Generated documentation intermediates
+*.docx~
+*.pdf.tmp
+
+# GitHub local tooling
+.gh/
+
+# Scratch / test output
 test*.txt
 test_*.txt
 test-*.txt
-*.trx
 build_output.txt
-build_output/
-out/
-**/out/
-artifacts/
-**/artifacts/
-*.zip
-*.7z
-*.rar
-
-# Release build artifacts (source-only repository)
-Release/
-**/Release/
-Build/
-**/Build/
-build/
-**/build/
-
-# Runtime data and user data
-Data/
-**/Data/
-snapshots/
-**/snapshots/
-settings/
-**/settings/
-*.json.bak
-*.json.tmp
-
-# Temporary files and editor backups
-*.tmp
-*.bak
-*.swp
-*~
-.DS_Store
-Thumbs.db
-
-# Secrets and credentials
-.env
-*.env
-*.secret
-*.secrets
-appsettings*.json
-**/appsettings*.json
-**/secrets/**
-**/.secrets/**
-NuGet/
-**/NuGet/
-*.nupkg
-*.snupkg
-
-# IDE
-.vscode/
-.idea/
-*.suo
-*.user
-*.rsuser
-*.sln.docstates
-
-# OS files
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Docs build temp
-__pycache__/
-*.pyc
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Installer tooling installs
-Tools/
-**/Tools/
-
-# Python tooling
-.tools/
-__pycache__/
-.pytest_cache/
-
-# Scratch / conversation artifacts
 method.txt
 lock.txt
-
-# Runtime test scratch
 tests/.temp/
 **/tests/.temp/
+.tools/
