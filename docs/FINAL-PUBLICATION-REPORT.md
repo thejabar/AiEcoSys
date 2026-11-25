@@ -1,116 +1,104 @@
 # AiEcoSys v1.0.0 — Final Publication Report
 
-**Date:** 2026-11-25  
-**Scope:** Local finalisation and publication readiness verification. No GitHub push/publish performed.
+**Date:** 2026-11-26  
+**Scope:** Final publication execution for verified local v1.0.0 release. No rebuild/redesign/feature changes; v1.0.0 release artifacts unchanged.
 
 ## 1. Baseline verification
 
 | Check | Result | Evidence |
 |---|---|---|
-| Local project inspected | **PASS** | `D:\AiEcoSys` inspected; release dir `D:\AiEcoSys\Release` present. |
+| Local project inspected | **PASS** | `D:\AiEcoSys` inspected; `Release/` present. |
 | Branch is `main` | **PASS** | `git branch --show-current` = `main`. |
-| Verified commit present in history | **PASS** | `854dc41a8d0da7177fcefc43765d59a3d67221ea` present as parent of current tip. |
-| Current HEAD | **PASS** | `93cf12d2e36c1a2e36f74bd8eb8c73260b5d8386` (publication metadata/compliance commit; preserves 854dc41). |
-| Working tree clean before/after report staging | **PASS** | Clean after commits; no unstaged release artifact changes. |
-| Release hashes unchanged | **PASS** | Portable/installer/ISO hashes match verified v1.0.0 values (see §8). |
+| Verified commit present in history | **PASS** | `854dc41a8d0da7177fcefc43765d59a3d67221ea` preserved in history. |
+| Current pushed tip | **PASS** | `eba06756577a120399266f09024d6652917a4b7` on `origin/main` (docs/compliance only; no release artifact changes). |
+| Working tree clean before publish actions | **PASS** | Clean at publication checkpoints. |
+| Release hashes unchanged | **PASS** | Portable/installer/ISO hashes match verified v1.0.0 values (see §6). |
 | ISO and installer exist | **PASS** | `Release\Installer\AiEcoSys-Setup.exe`, `Release\ISO\AiEcoSys.iso`, `Release\Portable\AiEcoSys.exe` present. |
 
-## 2. GitHub repository inspection / publication
+## 2. GitHub repository / publication
 
-| Check | Result | Evidence / Notes |
+| Check | Result | Evidence |
 |---|---|---|
-| GitHub CLI / authenticated GitHub integration available | **FAIL (BLOCKED)** | `gh` not installed; `GITHUB_TOKEN/GH_TOKEN/GITHUB_PAT/GH_PAT` absent; git credential helper configured but no authenticated GitHub API/CLI path available. |
-| Repository `thejabar/AiEcoSys` inspected | **NOT TESTED** | Blocked by missing GitHub authentication/tooling. Anonymous `git ls-remote` returned “Repository not found” (cannot distinguish nonexistent vs private without auth). |
-| Create/configure public repository | **NOT TESTED** | Blocked. |
-| Push verified source | **NOT TESTED** | Blocked. No remote configured; no push attempted. |
-| Remote commit matches 854dc41 | **NOT TESTED** | No remote/push. |
-| GitHub release v1.0.0 created | **NOT TESTED** | Blocked. |
-| Public release assets verified/downloaded | **NOT TESTED** | Blocked. |
-
-**Required manual action (specific):** Provide authenticated GitHub access in this environment (install/authorize `gh` CLI, or provide a supported authenticated GitHub integration) so I can inspect/create `thejabar/AiEcoSys`, push without force, create the v1.0.0 release, upload verified assets, and verify public downloads.
+| GitHub auth available | **PASS** | Authenticated via git credential manager; GitHub API confirmed `thejabar` identity. |
+| Repository inspected/created | **PASS** | `https://github.com/thejabar/AiEcoSys` exists, **public**, default branch `main`. |
+| Remote configured | **PASS** | `origin=https://github.com/thejabar/AiEcoSys.git`. |
+| Unrelated remote history handled safely | **PASS** | Remote had `b4c336c Initial commit` (README only). Merged with `--allow-unrelated-histories`; README conflict resolved by keeping verified README. No force-push/reset/amend. |
+| Source pushed | **PASS** | `origin/main` = `eba06756577a120399266f09024d6652917a4b7`; includes `854dc41`. |
+| v1.0.0 release created | **PASS** | https://github.com/thejabar/AiEcoSys/releases/tag/v1.0.0 — “AiEcoSys v1.0.0 - Initial Public Release”, not draft/prerelease. |
+| Release assets uploaded (verified local files) | **PASS** | 6 assets uploaded: installer, portable exe, ISO, SHA256SUMS.txt, Installation-Guide.pdf, Recovery-Guide.pdf. |
+| Public download/hash verification | **PASS** | All 6 assets downloaded from public release URLs and SHA-256 verified against expected values (see §6). |
 
 ## 3. Source repository validation
 
 | Check | Result | Evidence |
 |---|---|---|
-| Source code present | **PASS** | `src/` with 10 production projects. |
-| Tests present | **PASS** | `tests/` with Core and Desktop test projects. |
-| Documentation present | **PASS** | `docs/` includes installation/user/recovery/config/security/troubleshooting/verification reports. |
-| Installer scripts present | **PASS** | `installers/AiEcoSys.iss`, scripts under `scripts/`. |
-| ISO generation/verification scripts present | **PASS** | ISO/report artifacts present; verification documented in `docs/ISO-VERIFICATION.md`. |
-| Recovery scripts present | **PASS** | Backup/Restore/Repair/Verify/Diagnostics etc. in `scripts/`. |
-| GitHub Actions workflow present | **PASS** | `.github/workflows/ci.yml` present; hardened for runner-relative paths. |
-| MIT licence present | **PASS** | `LICENSE` contains MIT License text, Copyright (c) 2026 The Jabar. |
-| Third-party licence review documented | **PASS** | `THIRD-PARTY-NOTICES.md` covers Models.dev (MIT), .NET runtime (MIT), test packages, Inno Setup (build tool), project assets. |
-| README accurate / required sections | **PASS** | README includes install/portable/offline/provider/credentials/integrations/uninstall/recovery/verify, releases link, licence/notices/contribution/security. |
-| Security policy present | **PASS** | `SECURITY.md` added. |
-| Contribution instructions present | **PASS** | `CONTRIBUTING.md` added. |
-| Changelog present | **PASS** | `CHANGELOG.md` added. |
-| .gitignore present and working | **PASS** | Updated to include required exclusions; `git check-ignore` confirms settings ignored; Release/bin/obj/secrets/logs ignored. |
-| No release binaries/private data accidentally tracked | **PASS** | `git ls-files` contains no `Release/`, no bin/obj, no snapshots/settings/Data, no secret env files. |
-| No secrets in git history (pattern scan) | **PASS** | Read-only pattern scan for common token/key/private-key patterns over git history returned no matches. Filename match “CredentialStoreTests.cs” was name-only, not a secret. |
+| Source/tests/docs/scripts/installers present | **PASS** | `src/`, `tests/`, `docs/`, `scripts/`, `installers/`, `.github/workflows/ci.yml` present. |
+| Required root docs present | **PASS** | `README.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `LICENSE`, `THIRD-PARTY-NOTICES.md`, `.editorconfig`, `.gitignore`. |
+| MIT license exact/appropriate | **PASS** | `LICENSE` contains MIT License text; Copyright (c) 2026 The Jabar. |
+| Third-party notices | **PASS** | `THIRD-PARTY-NOTICES.md` covers Models.dev (MIT), .NET runtime, test packages, Inno Setup build tool, project assets. |
+| README accuracy/scope | **PASS** | Updated to reflect actual v1.0.0 Windows behavior, D: non-C: v1.0.0 constraint, cross-platform roadmap marked Planned/not available. |
+| .gitignore working | **PASS** | Ignores Release/bin/obj/data/settings/secrets/logs/scratch; no release binaries/private data tracked. |
+| No secrets in git history (pattern scan) | **PASS** | Read-only scans for common token/key/private-key patterns returned no matches. |
+| Developer-specific path separation | **PASS** | `D:\AiEcoSys` documented as maintainer dev path in `docs/DEVELOPER-GUIDE.md`; not imposed on end users. |
 
 ## 4. GitHub Actions / CI
 
 | Check | Result | Evidence |
 |---|---|---|
-| Workflow validates on Windows | **PASS** | `windows-latest`, .NET 10 setup, restore/build/test. |
-| CI paths runner-safe | **PASS** | Hardcoded `D:\AiEcoSys` paths removed from workflow; uses workspace-relative `AiEcoSys.slnx`. |
-| Secret scan/licence/dependency/SHA steps in CI | **NOT TESTED** | Not added as claiming-passing workflow; current CI covers build/test. Additional compliance jobs can be added before publication. |
-| Actual GitHub Actions run confirmed | **NOT TESTED** | No GitHub remote/push; no Actions run executed. |
+| Workflow present and Windows-safe | **PASS** | `.github/workflows/ci.yml` uses `windows-latest`, .NET 10, workspace-relative commands. |
+| Actual GitHub Actions run confirmed | **FAIL** | Latest runs completed with **failure**: [run 45706283721](https://github.com/thejabar/AiEcoSys/actions/runs/45706283721) (head `eba0675`, build-test failed), [run 45656377455](https://github.com/thejabar/AiEcoSys/actions/runs/45656377455) (head `6f87eb7`, build-test failed). Cause not remediated in this session; requires log review/fix in a follow-up change. |
+| Secret scan/licence/dependency/SHA CI jobs | **NOT TESTED** | Not added as passing workflow; existing CI is build/test only. |
 
-## 5. Release integrity (local, unchanged)
-
-| Artifact | SHA-256 | Result |
-|---|---|---|
-| `Release\Portable\AiEcoSys.exe` | `c99f9c0ee8321d2d4cf171675cba8cae3e7e4ae5fc60e62a6e7f5669127dbbd3` | **PASS** |
-| `Release\Installer\AiEcoSys-Setup.exe` | `0a4b07bd236a4c4216de3fab9651fba57f2a92e4ae6283ba6b7ec2f463756253` | **PASS** |
-| `Release\ISO\AiEcoSys.iso` | `48c4c6bab5177f4b5888c7d3a8b37626d2e5c10217a0f5f0b86c5b2a32c9fa1b` | **PASS** |
-| `Release\Portable\catalogue\api.json` | `9c00f5058890ab8eda19b376bc9083945a55abf0010f69a15051abf91584e3c6` | **PASS** |
-
-## 6. Security and compliance
+## 5. Security and compliance
 
 | Check | Result | Evidence |
 |---|---|---|
-| Credential Manager implementation | **PASS** | `SecurityService.cs` uses Windows Credential Manager P/Invoke; UI uses `PasswordBox`. |
-| No plaintext secrets in release files (pattern scan) | **PASS** | Read-only scan found no common key/token/private-key patterns. |
-| No credentials in logs (pattern scan) | **PASS** | Read-only scan of release/docs log/txt files found no credential patterns. |
-| No private config/user data in release assets | **PASS** | Portable config only example; no user snapshots/settings/data. |
-| Correct version/publisher metadata | **PASS** | v1.0.0, Company/Authors thejabar/The Jabar, copyright 2026. |
-| Self-contained deployment | **PASS** | Self-contained single-file win-x64; installer/portable/ISO artifacts present. |
+| No credentials in source/release/config | **PASS** | Pattern scans clean; no tracked secrets. |
+| Credential Manager implementation | **PASS** | Windows Credential Manager P/Invoke; `PasswordBox` in UI. |
+| HTTPS validation for integrations | **PASS** | Documented and implemented in v1.0.0 behavior; localhost HTTP exception. |
+| No telemetry in v1.0.0 | **PASS** | Documented; no telemetry implementation claimed. |
+| Correct version/publisher metadata | **PASS** | v1.0.0, The Jabar/thejabar, 2026. |
+| Installer unsigned / ISO not bootable | **PASS (disclosed)** | Documented as known limitations; ISO is installation media only. |
 
-## 7. Git status
+## 6. Release integrity and public verification
+
+| Asset | Local/expected SHA-256 | Downloaded SHA-256 | Size (bytes) | Result |
+|---|---|---|---:|---|
+| `AiEcoSys-Setup.exe` | `0a4b07bd236a4c4216de3fab9651fba57f2a92e4ae6283ba6b7ec2f463756253` | same | 45,198,369 | **PASS** |
+| `AiEcoSys.exe` (portable) | `c99f9c0ee8321d2d4cf171675cba8cae3e7e4ae5fc60e62a6e7f5669127dbbd3` | same | 140,097,058 | **PASS** |
+| `AiEcoSys.iso` | `48c4c6bab5177f4b5888c7d3a8b37626d2e5c10217a0f5f0b86c5b2a32c9fa1b` | same | 192,790,528 | **PASS** |
+| `SHA256SUMS.txt` | `f37baaaf421b2068fbb3fdb0da26644061b1605dfa2a16e32080a19684d44a42` (downloaded) | same | 269 | **PASS** (content matches expected installer/ISO/portable hashes) |
+| `Installation-Guide.pdf` | `6f06bb2d0b67951cac76afcbed1df0b1fe0f420ce6e06bd49e8b01e992e69929` (downloaded) | same | 97,655 | **PASS** |
+| `Recovery-Guide.pdf` | `bf530c2f1bd68f9fad85d7c271bdbf4b2affef9b49ceea5d748007f969201859` (downloaded) | same | 76,961 | **PASS** |
+
+## 7. Git final state
 
 | Check | Result | Evidence |
 |---|---|---|
-| Current branch | **PASS** | `main` |
-| Verified commit preserved | **PASS** | `854dc41a8d0da7177fcefc43765d59a3d67221ea` remains in history. |
-| Tip commit | **PASS** | `93cf12d2e36c1a2e36f74bd8eb8c73260b5d8386` (metadata/compliance docs; no release artifact changes). |
-| Working tree | **PASS** | Clean at time of report creation. |
-| Remote configured | **PASS (none)** | No remote. No push performed. |
+| Branch | **PASS** | `main` |
+| Remote | **PASS** | `origin` = `https://github.com/thejabar/AiEcoSys.git` |
+| 854dc41 preserved | **PASS** | In history. |
+| Published tip | **PASS** | `eba06756577a120399266f09024d6652917a4b7` (report update commit will follow this file). |
+| No destructive git operations | **PASS** | No force-push, amend, reset, or history rewrite. |
 
-## 8. Final deliverables / publication status
+## 8. Final deliverables
 
 | Item | Result | Details |
 |---|---|---|
-| Baseline verification | **PASS** | Complete. |
-| GitHub repository URL | **NOT TESTED** | Target: https://github.com/thejabar/AiEcoSys (not published/verified). |
-| Repository visibility | **NOT TESTED** | Blocked. |
-| Verified commit and branch | **PASS** | `main`, includes `854dc41...`; tip `93cf12d...`. |
-| GitHub Actions status | **NOT TESTED** | No remote run. |
-| v1.0.0 release URL | **NOT TESTED** | Target: https://github.com/thejabar/AiEcoSys/releases/tag/v1.0.0 (not created). |
-| Uploaded assets and sizes | **NOT TESTED** | No upload. Local assets ready: `AiEcoSys-Setup.exe` (45,198,369), `AiEcoSys.exe` portable (140,097,058), `AiEcoSys.iso` (192,790,528), `SHA256SUMS.txt`, guides/PDFs available in `docs/`. |
-| Original/downloaded SHA-256 comparison | **NOT TESTED** | No public downloads. |
-| Licence and documentation status | **PASS** | MIT LICENSE, THIRD-PARTY-NOTICES, README, CHANGELOG, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY present. |
-| Security and secret-scan results | **PASS** | Pattern scans clean; no tracked secrets/private data. |
-| Final local Git status | **PASS** | Clean; no force-push/amend/reset. |
-| Remaining limitations | **PASS** | GitHub auth/tooling unavailable; publication not executed. ISO not bootable; installer unsigned. |
+| GitHub repository URL | **PASS** | https://github.com/thejabar/AiEcoSys |
+| Repository visibility | **PASS** | Public |
+| Verified/published commit and branch | **PASS** | `main`, includes `854dc41a8d0da7177fcefc43765d59a3d67221ea`; tip `eba06756577a120399266f09024d6652917a4b7` (+ report update commit). |
+| GitHub Actions status | **FAIL** | Latest CI runs failed (see §4 links); not claimed as passing. |
+| v1.0.0 release URL | **PASS** | https://github.com/thejabar/AiEcoSys/releases/tag/v1.0.0 |
+| Uploaded assets and sizes | **PASS** | See §6. |
+| Original/downloaded SHA-256 comparison | **PASS** | See §6. |
+| Licence and documentation status | **PASS** | MIT, third-party notices, README, CHANGELOG, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, guides updated. |
+| Security and secret-scan results | **PASS** | Pattern scans clean; no secrets/private data/release binaries tracked. |
+| Remaining limitations / manual intervention | **PASS (reported)** | CI failures require investigation/fix in a follow-up change. v1.0.0 artifact immutability preserved. Installer unsigned; ISO not bootable. v1.0.0 enforces non-C: data path (documented). |
 
-## 9. Remaining manual intervention
+## 9. Final summary
 
-1. **Authenticate GitHub access** in this environment (preferred: install and `gh auth login`, or provide supported authenticated GitHub integration). I cannot proceed with repo creation/push/release without it.
-2. After auth, decide whether to push current `main` tip (`93cf12d`, preserves 854dc41) or create a publication branch strategy. The current tip contains only compliance/docs/CI metadata changes and no v1.0.0 release artifact changes.
-3. Run/confirm GitHub Actions on the remote after push.
-4. Create v1.0.0 GitHub release, attach verified local assets, and verify public download hashes.
-
-**Stop state:** No GitHub publication performed. Local v1.0.0 release artifacts and verified commit remain intact.
+- **Publication:** completed. Public repo and v1.0.0 release are live with verified assets and matching hashes.
+- **Integrity:** v1.0.0 release binaries unchanged; `854dc41` preserved.
+- **Blocking follow-up:** GitHub Actions CI is failing on recent pushes; investigate/fix via normal versioned source changes (do not mutate v1.0.0 release artifacts). 
+- **Path/roadmap positioning:** docs now clearly state actual v1.0.0 Windows/D: constraint and mark cross-platform/module/CLI/web/API/Docker/mobile as planned, not available in v1.0.0.
